@@ -1,0 +1,42 @@
+{
+    "agent": "na",
+    "steps": [
+   {
+    "thought": ["Note: A few commas may be missing while building the json file. If so, please refer to the actual code.",
+        "Let's get the tables and columns required."],
+    "action": ["We need to reference the tweets table thrice as t1,t2,t3 and link them",
+    "SELECT DISTINCT t1.writer FROM tweets t1, tweets t2, tweets t3, follows",
+    "WHERE t1.writer = t2.writer AND t2.writer = t3.writer"],
+    "actionResponse": "na",
+    "observation": "na"
+   },
+   {
+    "thought": "Now to compare that they all have the case insensitive name Edmonton in them",
+    "action": "AND lower(t1.text) like '%edmonton%' AND lower(t2.text) like '%edmonton%' AND lower(t3.text) like '%edmonton%'",
+    "actionResponse": "na",
+    "observation": "na"
+   },
+   {
+    "thought": "Now to check that they are three 'different' tweets",
+    "action": "AND t1.text <> t2.text AND t2.text <> t3.text AND t1.text <> t3.text",
+    "actionResponse": "na",
+    "observation": "na"
+   },
+   {
+    "thought": "To check that the users I've gotten so far don't have any followers",
+    "action": ["Using EXCEPT to subtract the results of the second query from the first query we've gotten so far",
+    "The results of the second query give every user that has written a tweet and has a follower",
+    "EXCEPT SELECT DISTINCT tweets.writer FROM tweets, follows",
+    "WHERE tweets.writer = follows.flwee"],
+    "actionResponse": "na",
+    "observation": "na"
+   },
+   {
+    "thought": "Let's run the combined completed query through the GitHub public tests",
+    "action": "Running the query in VS Code and GitHub",
+    "actionResponse": "na",
+    "observation": "The query passes the public tests."
+   }
+   ]
+}
+   

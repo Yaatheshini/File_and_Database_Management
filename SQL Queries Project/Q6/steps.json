@@ -1,0 +1,40 @@
+{
+    "agent": "na",
+    "steps": [
+   {
+    "thought": ["Note: A few commas may be missing while building the json file. If so, please refer to the actual code.",
+        "Let's find every unique tweet and its number of retweets by joining the tweets and retweets table."],
+    "action": ["SELECT t.writer, t.tdate, t.text, COUNT(r.writer) AS count FROM tweets t, retweets r",
+    "WHERE t.writer = r.writer AND t.tdate = r.tdate",
+    "GROUP BY t.writer, t.tdate, t.text ORDER BY COUNT(r.writer) DESC"],
+    "actionResponse": "na",
+    "observation": "na"
+   },
+   {
+    "thought": "Let's rank each of the above unique tweets based on their retweet count.",
+    "action": ["We take the above query's results and assign a rank to each row (tweet) based on the count of retweets",
+    "in descending order DESC using the RANK() function. So a nested query is formed with two select statements.",
+    "We use RANK() function instead of the LIMIT because rank allows for ties and if there are two ties for the first rank,",
+    "it skips the second rank and prints the third rank giving three output rows but if the third rank is also tied,",
+    "it gives four output rows. But LIMIT always outputs a fixed number of rows regardless of ties.",
+    "SELECT t.writer, t.tdate, t.text, RANK() OVER(ORDER BY count DESC) AS rank FROM (above first query) AS t",
+    "CITED: https://www.sqlshack.com/overview-of-sql-rank-functions/"],
+    "actionResponse": "na",
+    "observation": "na"
+   },
+   {
+    "thought": "Let's output the columns we need and ensure that only three ranks are output as needed.",
+    "action": ["SELECT writer, tdate, text FROM (above second query) AS t","so now we have another nested query.",
+    "So the total number of select statements is three and to ensure the rank is maximum three or less (in case of ties),",
+    "we have, WHERE rank <= 3"],
+    "actionResponse": "na",
+    "observation": "na"
+   },
+   {
+    "thought": "Let's run the completed query through the GitHub public tests",
+    "action": "Running the query in GitHub after posting the code in GitHub",
+    "actionResponse": "na",
+    "observation": "The query passes the public tests."
+   }
+   ]
+}

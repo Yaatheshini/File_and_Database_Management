@@ -1,0 +1,45 @@
+{
+    "agent": "na",
+    "steps": [
+   {
+    "thought": ["Note: A few commas may be missing while building the json file. If so, please refer to the actual code.",
+        "Let's find the distinct id and name of users who have at least two different tweets"],
+    "action": ["We reference the tweets table twice to get two different tweets for the same user",
+    "and after linking them through their writer columns to each other and one of them to the usr in users table using",
+    "SELECT DISTINCT u.usr, u.name FROM users u, tweets t1, tweets t2",
+    "WHERE u.usr = t1.writer AND t1.writer = t2.writer",
+    "we check if they are different by AND t1.text <> t2.text"],
+    "actionResponse": "na",
+    "observation": "na"
+   },
+   {
+    "thought": "Let's find out all the users who are followed by any user named ‘john doe’ case insensitive .",
+    "action": ["SELECT flwee FROM follows WHERE flwer IN",
+    "(SELECT DISTINCT flwer FROM follows, users", 
+    "WHERE users.usr = follows.flwer AND lower(users.name) LIKE 'john doe'",
+    "We use nested statements to figure out if the flwer is John Doe before identifying those particular flwee people"],
+    "actionResponse": "na",
+    "observation": "na"
+   },
+   {
+    "thought": "Let's find all the users who follow any user that ‘john doe’ case insensitive",
+    "action": ["By referencing to the previous main and sub queries, we get",
+    "SELECT DISTINCT f.flwer FROM follows f WHERE f.flwer = u.usr AND f.flwee = follows.flwee)"],
+    "actionResponse": "na",
+    "observation": "na"
+   },
+   {
+    "thought": "Let's combine all the different queries.",
+    "action": "I use NOT EXISTS to combine both the sub-queries with the main query because NOT EXISTS help filter records",
+    "actionResponse": "na",
+    "observation": "na"
+   },
+   {
+    "thought": "Let's run the completed query through the GitHub public tests",
+    "action": "Running the query in GitHub after posting the code in GitHub",
+    "actionResponse": "na",
+    "observation": "The query passes the public tests."
+   }
+   ]
+}
+   

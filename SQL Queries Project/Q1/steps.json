@@ -1,0 +1,28 @@
+{
+    "agent": "na",
+    "steps": [
+   {
+    "thought": ["Note: A few commas may be missing while building the json file. If so, please refer to the actual code.",
+        "Let's find relevant necessary tables."],
+    "action": "Relevant tables are tweets, follows, includes",
+    "actionResponse": "na",
+    "observation": "na"
+   },
+   {
+    "thought": "Let's find relevant necessary columns from the tables and link them.",
+    "action": ["WHERE tweets.writer = follows.flwee AND tweets.writer = includes.member",
+    "AND tweets.writer = includes.member"],
+    "actionResponse": "na",
+    "observation": "na"
+   },
+   {
+    "thought": "Let's solve the entire query",
+    "action": ["SELECT DISTINCT writer", 
+    "FROM tweets, follows, includes",  
+    "WHERE tweets.writer = follows.flwee",
+    "AND tweets.writer = includes.member;"],
+    "actionResponse": "na",
+    "observation": "na"
+   }
+   ]
+}

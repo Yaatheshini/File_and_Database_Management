@@ -1,0 +1,55 @@
+{
+    "agent": "na",
+    "steps": [
+   {
+    "thought": ["Note: A few commas may be missing while building the json file. If so, please refer to the actual code.",
+        "Let's get the month from the tdate column for every tweet or reply in the tweets table after",
+    "grouping each month of the 2023 year"],
+    "action": ["SELECT strftime('%m', t.tdate) AS 'Month' FROM tweets t ",
+    "WHERE strftime('%Y', t.tdate) = '2023' GROUP BY strftime('%Y-%m', t.tdate)",
+    "CITED: https://sqlite.org/lang_datefunc.html"],
+    "actionResponse": "na",
+    "observation": "na"
+   },
+   {
+    "thought": "Let's find the total number of tweets that are not replies for each month",
+    "action": ["SUM(CASE WHEN t.replyto_w IS NULL AND t.replyto_d IS NULL THEN 1 ELSE 0 END) AS 'Total Tweets'",
+    "CASE WHEN is used to check conditionally the NULL values and return values accordingly.",
+    "CITED: https://www.w3schools.com/sql/sql_case.asp",
+    "SUM counts the number of tweets where both replyto_w and replyto_d are NULL"],
+    "actionResponse": "na",
+    "observation": "na"
+   },
+   {
+    "thought": "Let's find the total number of tweets that are replies for each month",
+    "action": ["SUM(CASE WHEN t.replyto_w IS NOT NULL OR t.replyto_d IS NOT NULL THEN 1 ELSE 0 END) AS 'Total Replies'",
+    "SUM and CASE WHEN here behave the same as above but here, check for NUT NULL"],
+    "actionResponse": "na",
+    "observation": "na"
+   },
+   {
+    "thought": "Let's find the total number of retweets for each month",
+    "action": ["(SELECT COUNT(*) FROM retweets r WHERE strftime('%Y-%m', r.rdate) = strftime('%Y-%m', t.tdate))", 
+    "AS 'Total Retweets' matches the month and year of rdate of the retweets table to the month and year of tdate of the", 
+    "tweets table. Since these are all subqueries, the tweets table referenced under the main query is used directly."],
+    "actionResponse": "na",
+    "observation": "na"
+   },
+   {
+    "thought": "Let's find the total of all the above subqueries by adding them up.",
+    "action": ["SUM(CASE WHEN t.replyto_w IS NULL AND t.replyto_d IS NULL THEN 1 ELSE 0 END) + ",
+    "SUM(CASE WHEN t.replyto_w IS NOT NULL OR t.replyto_d IS NOT NULL THEN 1 ELSE 0 END) + ",
+    "(SELECT COUNT(*) FROM retweets r WHERE strftime('%Y-%m', r.rdate) = strftime('%Y-%m', t.tdate))",
+    "AS 'Sum of Tweets, Replies, and Retweets' We have used multiple subqueries in the main SELECT query", 
+    "to output each of the above subqueries as columns"],
+    "actionResponse": "na",
+    "observation": "na"
+   },
+   {
+    "thought": "Let's run the completed query through the GitHub public tests",
+    "action": "Running the query in GitHub after posting the code in GitHub",
+    "actionResponse": "na",
+    "observation": "The query passes the public tests."
+   }
+   ]
+}
